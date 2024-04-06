@@ -4,11 +4,21 @@
     padding: 0;
 }
 
-li {
-    list-style: none;
+body {
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-a {
-    text-decoration: none;
-    color: rgb(0, 0, 0);
+h1 {
+    display: flex;
+    text-align: center;
+}
+
+.inputPanel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
