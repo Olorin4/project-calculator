@@ -1,9 +1,11 @@
 // Addition
-function addition(arr) {
-    return arr.reduce((accumulator, current) => accumulator + current , 0);
-}
+// function addition(arr) {
+//     return arr.reduce((accumulator, current) => accumulator + current , 0);
+// }
+addition(a, b) => a + b;
 
-addition([1, 2, 3, 4, 5]);
+
+addition(17, 32);
 
 
 // Subtraction
@@ -15,11 +17,12 @@ subtraction(55, 24);
 
 
 // Multiply
-function muliplication(a, b) {
+function multiplication(a, b) {
     return a * b;
 }
 
-muliplication(5, 8);
+multiplication(5, 8);
+
 
 //Division
 function division(a, b) {
@@ -27,3 +30,15 @@ function division(a, b) {
 }
 
 division(63, 9);
+
+
+let firstNum;
+let operator;
+let secondNum;
+
+function operate(firstNum, operator, secondNum) {
+    operate === '+' ? addition(firstNum, secondNum);
+}
+
+
+
