@@ -2,49 +2,52 @@
 // function addition(arr) {
 //     return arr.reduce((accumulator, current) => accumulator + current , 0);
 // }
+let result;
+
 function addition(a, b) {
-    return a + b;
+    return result = a + b;
 }
 
 function subtraction(a, b) {
-    return a - b;
+    return result = a - b;
 }
 
 function multiplication(a, b) {
-    return a * b;
+    return result = a * b;
 }
 
 function division(a, b) {
-    return a / b;
+    return result = a / b;
 }
 
 function remainder(a, b) {
-    return a % b;
+    return result = a % b;
 }
 
 let firstNum = document.querySelectorAll(".numbers"); // Are these three queries really needed?
 let operator = document.querySelectorAll(".operators");
 let secondNum;
 
+
 function operate(firstNum, operator, secondNum) {
     operator === '+' ? addition(firstNum, secondNum):
     operator === '-' ? subtraction(firstNum, secondNum):
-    operator === '*' ? multiplication(firstNum, secondNum):
+    operator === 'x' ? multiplication(firstNum, secondNum):
     operator === '/' ? division(firstNum, secondNum):
     operator === '%' ? remainder(firstNum, secondNum):
-    '';
+                        'Nan';
 }
 
 
 //Add button functionality for numbers
 let btn = document.querySelectorAll(".numbers");
-let result = document.querySelector(".results");
+let output = document.querySelector(".results");
 
 btn.forEach(button => {
     button.addEventListener("click", () => {
-        (result.textContent === '0' || firstNum !== undefined) ?
-            result.textContent = button.textContent :
-            result.textContent += button.textContent;
+        (output.textContent === '0' || operator !== undefined) ?
+            output.textContent = button.textContent :
+            output.textContent += button.textContent;
     });
 });
 
@@ -53,8 +56,9 @@ let inp = document.querySelector(".userInput");
 
 operator.forEach(button => {
     button.addEventListener("click", () => {
-        firstNum = +result.textContent;
+        firstNum = +output.textContent;
         inp.textContent = firstNum + button.textContent;
+        return operator = button.textContent;
     });
 });
 
@@ -62,9 +66,8 @@ operator.forEach(button => {
 let eql = document.querySelector("#equals");
 
 eql.addEventListener("click", () => {
-    
-    secondNum = +result.textContent;
+    secondNum = +output.textContent;
     inp.textContent = inp.textContent + secondNum;
-    operate();
-    result.textContent = firstNum + secondNum;
+    operate(firstNum, operator, secondNum);
+    output.textContent = result;
 });
