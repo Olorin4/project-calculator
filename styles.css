@@ -47,7 +47,7 @@ p {
     font-size: 350%;
 }
 
-.inputPanel {
+.numbers {
     display: flex;
     flex-wrap: wrap;
     height: 300px;
