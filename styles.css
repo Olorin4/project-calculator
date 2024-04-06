@@ -37,12 +37,13 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-right: 15px;
+    max-width: 95%;
+    overflow: hidden;
 }
 
 p {
-    flex: 0 0 auto;
     height: 60px;
+    padding-right: 15px;
     color: beige;
     font-size: 350%;
 }
@@ -70,3 +71,7 @@ button:hover {
 .numbers {
     background-color: #6198c5;
 }
+
+/* .userInput {
+    color: gray;
+} */

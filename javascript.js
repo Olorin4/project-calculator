@@ -48,12 +48,16 @@ btn.forEach(button => {
 });
 
 //Add button functionality for operators
+let inp = document.querySelector(".userInput");
+
 operator.forEach(button => {
     button.addEventListener("click", () => {
-        rlt.textContent += button.textContent;
+        rlt.textContent += button.textContent ;
     });
 });
 
+//Add button functionality for the 'equals' button
+let eql = document.querySelector("#equals");
 
-
+eql.addEventListener("click", () => operate());
 
