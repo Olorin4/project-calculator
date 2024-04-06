@@ -35,11 +35,14 @@ h1 {
 
 .outputPanel {
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
     padding-right: 15px;
 }
 
 p {
+    flex: 0 0 auto;
+    height: 60px;
     color: beige;
     font-size: 350%;
 }
