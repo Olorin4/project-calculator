@@ -22,7 +22,7 @@ function remainder(a, b) {
     return a % b;
 }
 
-let firstNum = document.querySelectorAll(".numbers");
+let firstNum = document.querySelectorAll(".numbers"); // Are these three queries really needed?
 let operator = document.querySelectorAll(".operators");
 let secondNum = document.querySelectorAll(".numbers");
 
@@ -38,12 +38,13 @@ function operate(firstNum, operator, secondNum) {
 
 //Add button functionality for numbers
 let btn = document.querySelectorAll(".numbers");
-let rlt = document.querySelector(".result");
+let result = document.querySelector(".results");
 
 btn.forEach(button => {
     button.addEventListener("click", () => {
-        (rlt.textContent === '0') ? rlt.textContent = button.textContent :
-            rlt.textContent += button.textContent;
+        (result.textContent === '0' || firstNum !== undefined) ?
+            result.textContent = button.textContent :
+            result.textContent += button.textContent;
     });
 });
 
@@ -52,12 +53,15 @@ let inp = document.querySelector(".userInput");
 
 operator.forEach(button => {
     button.addEventListener("click", () => {
-        rlt.textContent += button.textContent ;
+        firstNum = +result.textContent;
+        inp.textContent = firstNum + button.textContent;
     });
 });
 
 //Add button functionality for the 'equals' button
 let eql = document.querySelector("#equals");
 
-eql.addEventListener("click", () => operate());
-
+eql.addEventListener("click", () => {
+    secondNum = rlt.textContent - firstNum;
+    operate();
+});
