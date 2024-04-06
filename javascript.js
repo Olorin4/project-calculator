@@ -36,4 +36,14 @@ function operate(firstNum, operator, secondNum) {
 }
 
 
+//Add button functionality
+let btn = document.querySelectorAll("button");
+let rlt = document.querySelector(".result");
+
+btn.forEach(button => {
+    button.addEventListener("click", () => {
+        rlt.textContent = button.textContent;
+    });
+});
+
 
