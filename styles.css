@@ -26,7 +26,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: flex-end;
-    background-color: rgb(12, 80, 137);
+    background-color: #134269;
     border: 2px solid rgb(164, 167, 190);
     border-radius: 3.5%;
     height: 450px;
@@ -55,7 +55,7 @@ p {
 }
 
 button {
-    background-color: #3378b3;
+    background-color: #215b8e;
     transition: background-color 0.5s;
     color: beige;
     font-size: x-large;
@@ -68,8 +68,12 @@ button:hover {
     background-color: #1b45a8;
   }
 
+  #equals {
+    background-color: #5f8ced;
+  }
+
 .numbers {
-    background-color: #6198c5;
+    background-color: #134269;
 }
 
 .userInput {
