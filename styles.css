@@ -5,7 +5,11 @@
 }
 
 body {
-    background-color: bisque;
+    background:
+        linear-gradient(rgb(41, 172, 165), transparent),
+        linear-gradient(to top left, rgb(71, 14, 242), transparent),
+        linear-gradient(to top right, rgb(39, 70, 97), transparent);
+    background-blend-mode: screen;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,12 +17,50 @@ body {
 }
 
 h1 {
+    text-shadow: 2px 2px;
+    color: rgb(78, 101, 130);
+}
+
+.container {
     display: flex;
-    text-align: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: rgb(7, 87, 152);
+    border: 2px solid rgb(164, 167, 190);
+    border-radius: 3.5%;
+    height: 450px;
+    width:  245px;
+}
+
+.outputPanel {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
+}
+
+p {
+    color: beige;
+    font-size: 350%;
 }
 
 .inputPanel {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    height: 300px;
 }
+
+button {
+    background-color: steelblue;
+    transition: background-color 1s;
+    color: beige;
+    font-size: larger;
+    height: 60px;
+    flex-basis: 60px;
+    border-radius: 20%;
+}
+
+button:hover {
+    background-color: #184abd;
+  }
+
