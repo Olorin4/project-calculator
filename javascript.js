@@ -22,9 +22,9 @@ function remainder(a, b) {
     return a % b;
 }
 
-let firstNum;
-let operator;
-let secondNum;
+let firstNum = document.querySelectorAll(".numbers");
+let operator = document.querySelectorAll(".operators");
+let secondNum = document.querySelectorAll(".numbers");
 
 function operate(firstNum, operator, secondNum) {
     operator === '+' ? addition(firstNum, secondNum):
@@ -36,14 +36,24 @@ function operate(firstNum, operator, secondNum) {
 }
 
 
-//Add button functionality
-let btn = document.querySelectorAll("button");
+//Add button functionality for numbers
+let btn = document.querySelectorAll(".numbers");
 let rlt = document.querySelector(".result");
 
 btn.forEach(button => {
     button.addEventListener("click", () => {
-        rlt.textContent = button.textContent;
+        (rlt.textContent === '0') ? rlt.textContent = button.textContent :
+            rlt.textContent += button.textContent;
     });
 });
+
+//Add button functionality for operators
+operator.forEach(button => {
+    button.addEventListener("click", () => {
+        rlt.textContent += button.textContent;
+    });
+});
+
+
 
 
