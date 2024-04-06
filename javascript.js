@@ -24,7 +24,7 @@ function remainder(a, b) {
 
 let firstNum = document.querySelectorAll(".numbers"); // Are these three queries really needed?
 let operator = document.querySelectorAll(".operators");
-let secondNum = document.querySelectorAll(".numbers");
+let secondNum;
 
 function operate(firstNum, operator, secondNum) {
     operator === '+' ? addition(firstNum, secondNum):
@@ -62,6 +62,9 @@ operator.forEach(button => {
 let eql = document.querySelector("#equals");
 
 eql.addEventListener("click", () => {
-    secondNum = rlt.textContent - firstNum;
+    
+    secondNum = +result.textContent;
+    inp.textContent = inp.textContent + secondNum;
     operate();
+    result.textContent = firstNum + secondNum;
 });
