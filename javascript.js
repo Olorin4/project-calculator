@@ -1,88 +1,114 @@
 let result;
 
-function operate(firstNum, operator, secondNum) {
+function operate(a, operator, b) {
     switch (operator) {
         case "+":
-            result = firstNum + secondNum;
-            break;
+            return a + b;
         case "-":
-            result = firstNum - secondNum;
-            break;
+            return a - b;
         case "x":
-            result = firstNum * secondNum;
-            break;
+            return a * b;
         case "/":
-            result = firstNum / secondNum;
-            break;
+            return a / b;
         case "%":
-            result = firstNum % secondNum;
-            break;
+            return a % b;
         default:
             return NaN; // Handle invalid operator
     }
 }
 
+
 let firstNum;
-let operator = document.querySelectorAll(".operators");
+let currentOperator;
 let secondNum;
 
+
 //Add button functionality for number buttons
-let btn = document.querySelectorAll(".numbers");
 let output = document.querySelector(".output");
 
-btn.forEach(button => {
+function updateOutput(value) {
+    if (+output.textContent === 0) { 
+        output.textContent = value;
+    } else {
+        output.textContent += value;
+    }   
+}
+
+document.querySelectorAll(".numbers").forEach(button => {
     button.addEventListener("click", () => {
-        if (+output.textContent === 0) { 
-            output.textContent = button.textContent;
-        } else {
-            output.textContent += button.textContent;
-        }   
+        updateOutput(button.textContent);
     });
 });
 
-//Add button functionality for operators
+
+//Add button functionality for operator buttons
 let input = document.querySelector(".input");
 
-operator.forEach(button => {
-    button.addEventListener("click", () => {
+function handleOperatorClick(operator) {
         firstNum = +output.textContent;
-        input.textContent = firstNum + " " + button.textContent + " ";
+        input.textContent = `${firstNum} ${operator} `;
         output.textContent = "";
-        return operator = button.textContent;
+        currentOperator = operator;
+}
+
+document.querySelectorAll(".operators").forEach(button => {
+    button.addEventListener("click", () => {
+        handleOperatorClick(button.textContent);
     });
 });
 
-//Add button functionality for the 'equals' button
-document.querySelector("#equals").addEventListener("click", () => {
+
+//Add button functionality for the '=' button
+function handleEqualsClick() {
     secondNum = +output.textContent;
     input.textContent += `${secondNum} =`;
-    operate(firstNum, operator, secondNum);
+    result = operate(firstNum, currentOperator, secondNum);
     output.textContent = result.toLocaleString(); // thousands separator and rounding decimals
     firstNum = result;
-    operator = undefined;
-});
+    currentOperator = undefined;
+    if (currentOperator = "/" && secondNum === 0) {
+        alert("ERROR! Don't you know you can't divide by 0? Pff...");
+        cancelButton();
+    }
+}
+
+document.querySelector("#equals").addEventListener("click", handleEqualsClick);
+
 
 // Add functionality for the AC button
-document.querySelector("#AC").addEventListener("click", () => {
+function cancelButton() {
     output.textContent = 0;
     input.textContent = " ";
     firstNum = undefined;
     secondNum = undefined;
-    operator = undefined;
-});
+    currentOperator = undefined;
+    result = undefined;
+}
 
-// Add functionality for the backspace button
-// let backSpace = document.querySelector("#bksp");
+document.querySelector("#AC").addEventListener("click", cancelButton);
 
-// cancelBtn.addEventListener("click", () => {
-//     output.textContent = 
+
+// Add functionality for the Backspace button
+function deleteLastDigit(number) {
+    if (output.textContent.length === 1) {
+        output.textContent = 0;
+    } else {
+        let numberString = number.toString();
+        let newNumberString = numberString.slice(0, -1);
+        let newNumber = parseFloat(newNumberString);
+        output.textContent = newNumber;
+    }
+}
+
+// document.querySelector("#backspace").addEventListener("click", () => {
+//     deleteLastDigit(output.textContent);
 // });
 
+
+// Display a snarky error message if the user tries to divide by 0
 
 
 // Issues to fix:
 // 1. Users should be able to string together several operations
-// 2. round answers with long decimals = DONE!
-// 3. Display a snarky error message if the user tries to divide by 0
-// 4. Pressing = before entering all of the numbers or an operator could cause problems!
-// 5. Add keyboard support!
+// 2. Pressing = before entering all of the numbers or an operator could cause problems!
+// 3. Add keyboard support!
