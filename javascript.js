@@ -91,7 +91,16 @@ let cancelBtn = document.querySelector("#AC");
 cancelBtn.addEventListener("click", () => {
     output.textContent = 0;
     input.textContent = " ";
+    firstNum = undefined;
+    secondNum = undefined;
 });
+
+// Add functionality for the backspace button
+// let backSpace = document.querySelector("#bksp");
+
+// cancelBtn.addEventListener("click", () => {
+//     output.textContent = 
+// });
 
 
 
