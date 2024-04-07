@@ -1,30 +1,28 @@
-// Addition
-// function addition(arr) {
-//     return arr.reduce((accumulator, current) => accumulator + current , 0);
-// }
 let result;
 
-function addition(a, b) {
-    return result = a + b;
+function operate(firstNum, operator, secondNum) {
+    switch (operator) {
+        case "+":
+            result = firstNum + secondNum;
+            break;
+        case "-":
+            result = firstNum - secondNum;
+            break;
+        case "x":
+            result = firstNum * secondNum;
+            break;
+        case "/":
+            result = firstNum / secondNum;
+            break;
+        case "%":
+            result = firstNum % secondNum;
+            break;
+        default:
+            return NaN; // Handle invalid operator
+    }
 }
 
-function subtraction(a, b) {
-    return result = a - b;
-}
-
-function multiplication(a, b) {
-    return result = a * b;
-}
-
-function division(a, b) {
-    return result = a / b;
-}
-
-function remainder(a, b) {
-    return result = a % b;
-}
-
-let firstNum = document.querySelectorAll(".numbers"); // Are these three queries really needed?
+let firstNum;
 let operator = document.querySelectorAll(".operators");
 let secondNum;
 
@@ -55,44 +53,22 @@ operator.forEach(button => {
 });
 
 //Add button functionality for the 'equals' button
-let eql = document.querySelector("#equals");
-
-eql.addEventListener("click", () => {
+document.querySelector("#equals").addEventListener("click", () => {
     secondNum = +output.textContent;
-    input.textContent = `${input.textContent}  ${secondNum} =`;
+    input.textContent += `${secondNum} =`;
     operate(firstNum, operator, secondNum);
-    output.textContent = result.toLocaleString();;
+    output.textContent = result.toLocaleString(); // thousands separator and rounding decimals
     firstNum = result;
+    operator = undefined;
 });
 
-function operate(firstNum, operator, secondNum) {
-    switch (operator) {
-        case "+":
-            result = firstNum + secondNum;
-            break;
-        case "-":
-            result = firstNum - secondNum;
-            break;
-        case "x":
-            result = firstNum * secondNum;
-            break;
-        case "/":
-            result = firstNum / secondNum;
-            break;
-        case "%":
-            result = firstNum % secondNum;
-            break;
-    }
-}
-
 // Add functionality for the AC button
-let cancelBtn = document.querySelector("#AC");
-
-cancelBtn.addEventListener("click", () => {
+document.querySelector("#AC").addEventListener("click", () => {
     output.textContent = 0;
     input.textContent = " ";
     firstNum = undefined;
     secondNum = undefined;
+    operator = undefined;
 });
 
 // Add functionality for the backspace button
@@ -105,5 +81,8 @@ cancelBtn.addEventListener("click", () => {
 
 
 // Issues to fix:
-// 1. 
-// 2. 
+// 1. Users should be able to string together several operations
+// 2. round answers with long decimals = DONE!
+// 3. Display a snarky error message if the user tries to divide by 0
+// 4. Pressing = before entering all of the numbers or an operator could cause problems!
+// 5. Add keyboard support!
