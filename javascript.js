@@ -34,7 +34,7 @@ let output = document.querySelector(".output");
 
 btn.forEach(button => {
     button.addEventListener("click", () => {
-        if (+output.textContent === 0 || secondNum !== undefined) { 
+        if (+output.textContent === 0) { 
             output.textContent = button.textContent;
         } else {
             output.textContent += button.textContent;
@@ -61,7 +61,8 @@ eql.addEventListener("click", () => {
     secondNum = +output.textContent;
     input.textContent = input.textContent + secondNum;
     operate(firstNum, operator, secondNum);
-    output.textContent = `= ${result}`;
+    output.textContent = result;
+    firstNum = result;
 });
 
 function operate(firstNum, operator, secondNum) {

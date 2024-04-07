@@ -42,13 +42,15 @@ h1 {
 }
 
 p {
+    display: flex;
+    justify-content: flex-end;
     height: 60px;
     padding-right: 15px;
     color: beige;
     font-size: 350%;
 }
 
-.inputPanel {
+.buttonPanel {
     display: flex;
     flex-wrap: wrap;
     height: 300px;
