@@ -61,7 +61,7 @@ eql.addEventListener("click", () => {
     secondNum = +output.textContent;
     input.textContent = `${input.textContent}  ${secondNum}`;
     operate(firstNum, operator, secondNum);
-    output.textContent = result;
+    output.textContent = result.toLocaleString();;
     firstNum = result;
 });
 
@@ -86,5 +86,5 @@ function operate(firstNum, operator, secondNum) {
 }
 
 // Issues to fix:
-// 1. place comma to thousand numbers
+// 1. 
 // 2. 
