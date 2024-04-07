@@ -73,7 +73,7 @@ function operate(firstNum, operator, secondNum) {
         case "-":
             result = firstNum - secondNum;
             break;
-        case "*":
+        case "x":
             result = firstNum * secondNum;
             break;
         case "/":
@@ -84,3 +84,7 @@ function operate(firstNum, operator, secondNum) {
             break;
     }
 }
+
+// Issues to fix:
+// 1. place comma to thousand numbers
+// 2. place a space after the first input number

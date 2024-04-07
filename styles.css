@@ -29,7 +29,7 @@ h1 {
     background-color: #134269;
     border: 2px solid rgb(164, 167, 190);
     border-radius: 3.5%;
-    height: 450px;
+    height: 400px;
     width:  245px;
 }
 
@@ -43,15 +43,20 @@ h1 {
 p {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     height: 60px;
     padding-right: 15px;
     color: beige;
-    font-size: 250%;
+    font-size: 200%;
 }
 
 .input {
     color: gray;
     font-size: 110%;
+}
+
+.output {
+    justify-content: space-around;
 }
 
 .buttonPanel {
