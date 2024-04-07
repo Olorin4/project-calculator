@@ -48,7 +48,7 @@ let input = document.querySelector(".input");
 operator.forEach(button => {
     button.addEventListener("click", () => {
         firstNum = +output.textContent;
-        input.textContent = firstNum + button.textContent;
+        input.textContent = firstNum + " " + button.textContent;
         output.textContent = "";
         return operator = button.textContent;
     });
@@ -87,4 +87,4 @@ function operate(firstNum, operator, secondNum) {
 
 // Issues to fix:
 // 1. place comma to thousand numbers
-// 2. place a space after the first input number
+// 2. 
