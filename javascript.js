@@ -86,6 +86,14 @@ function operate(firstNum, operator, secondNum) {
 }
 
 // Add functionality for the AC button
+let cancelBtn = document.querySelector("#AC");
+
+cancelBtn.addEventListener("click", () => {
+    output.textContent = 0;
+    input.textContent = " ";
+});
+
+
 
 // Issues to fix:
 // 1. 
