@@ -48,7 +48,7 @@ let input = document.querySelector(".input");
 operator.forEach(button => {
     button.addEventListener("click", () => {
         firstNum = +output.textContent;
-        input.textContent = firstNum + " " + button.textContent;
+        input.textContent = firstNum + " " + button.textContent + " ";
         output.textContent = "";
         return operator = button.textContent;
     });
@@ -59,7 +59,7 @@ let eql = document.querySelector("#equals");
 
 eql.addEventListener("click", () => {
     secondNum = +output.textContent;
-    input.textContent = `${input.textContent}  ${secondNum}`;
+    input.textContent = `${input.textContent}  ${secondNum} =`;
     operate(firstNum, operator, secondNum);
     output.textContent = result.toLocaleString();;
     firstNum = result;
@@ -84,6 +84,8 @@ function operate(firstNum, operator, secondNum) {
             break;
     }
 }
+
+// Add functionality for the AC button
 
 // Issues to fix:
 // 1. 
