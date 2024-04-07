@@ -44,10 +44,16 @@ h1 {
 p {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     height: 60px;
     padding-right: 15px;
     color: beige;
     font-size: 350%;
+}
+
+.input {
+    color: gray;
+    font-size: 110%;
 }
 
 .buttonPanel {
@@ -76,8 +82,4 @@ button:hover {
 
 .numbers {
     background-color: #134269;
-}
-
-.userInput {
-    color: gray;
 }

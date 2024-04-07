@@ -59,7 +59,7 @@ let eql = document.querySelector("#equals");
 
 eql.addEventListener("click", () => {
     secondNum = +output.textContent;
-    input.textContent = input.textContent + secondNum;
+    input.textContent = `${input.textContent}  ${secondNum}`;
     operate(firstNum, operator, secondNum);
     output.textContent = result;
     firstNum = result;
