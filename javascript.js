@@ -100,9 +100,9 @@ function deleteLastDigit(number) {
     }
 }
 
-// document.querySelector("#backspace").addEventListener("click", () => {
-//     deleteLastDigit(output.textContent);
-// });
+document.querySelector("#backspace").addEventListener("click", () => {
+    deleteLastDigit(output.textContent);
+});
 
 
 // Display a snarky error message if the user tries to divide by 0
