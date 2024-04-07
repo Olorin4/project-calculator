@@ -28,36 +28,28 @@ let firstNum = document.querySelectorAll(".numbers"); // Are these three queries
 let operator = document.querySelectorAll(".operators");
 let secondNum;
 
-
-function operate(firstNum, operator, secondNum) {
-    operator === '+' ? addition(firstNum, secondNum):
-    operator === '-' ? subtraction(firstNum, secondNum):
-    operator === 'x' ? multiplication(firstNum, secondNum):
-    operator === '/' ? division(firstNum, secondNum):
-    operator === '%' ? remainder(firstNum, secondNum):
-                        'Nan';
-}
-
-
-//Add button functionality for numbers
+//Add button functionality for number buttons
 let btn = document.querySelectorAll(".numbers");
-let output = document.querySelector(".results");
+let output = document.querySelector(".output");
 
 btn.forEach(button => {
     button.addEventListener("click", () => {
-        (output.textContent === '0' || operator !== undefined) ?
-            output.textContent = button.textContent :
+        if (+output.textContent === 0 || secondNum !== undefined) { 
+            output.textContent = button.textContent;
+        } else {
             output.textContent += button.textContent;
+        }   
     });
 });
 
 //Add button functionality for operators
-let inp = document.querySelector(".userInput");
+let input = document.querySelector(".input");
 
 operator.forEach(button => {
     button.addEventListener("click", () => {
         firstNum = +output.textContent;
-        inp.textContent = firstNum + button.textContent;
+        input.textContent = firstNum + button.textContent;
+        output.textContent = "";
         return operator = button.textContent;
     });
 });
@@ -67,7 +59,24 @@ let eql = document.querySelector("#equals");
 
 eql.addEventListener("click", () => {
     secondNum = +output.textContent;
-    inp.textContent = inp.textContent + secondNum;
+    input.textContent = input.textContent + secondNum;
     operate(firstNum, operator, secondNum);
-    output.textContent = result;
+    output.textContent = `= ${result}`;
 });
+
+function operate(firstNum, operator, secondNum) {
+    switch (operator) {
+        case "+":
+            result = firstNum + secondNum;
+            break;
+        case "-":
+            result = firstNum - secondNum;
+            break;
+        case "*":
+            result = firstNum * secondNum;
+            break;
+        case "/":
+            result = firstNum / secondNum;
+            break;
+    }
+}
