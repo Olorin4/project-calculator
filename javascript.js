@@ -79,5 +79,8 @@ function operate(firstNum, operator, secondNum) {
         case "/":
             result = firstNum / secondNum;
             break;
+        case "%":
+            result = firstNum % secondNum;
+            break;
     }
 }

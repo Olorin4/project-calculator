@@ -36,7 +36,6 @@ h1 {
 .outputPanel {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     max-width: 95%;
     overflow: hidden;
 }
@@ -44,11 +43,10 @@ h1 {
 p {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     height: 60px;
     padding-right: 15px;
     color: beige;
-    font-size: 350%;
+    font-size: 250%;
 }
 
 .input {
