@@ -23,7 +23,7 @@ let currentOperator;
 let secondNum;
 
 
-//Add button functionality for number buttons
+//Add functionality for number buttons
 let output = document.querySelector(".output");
 
 function updateOutput(value) {
@@ -41,7 +41,7 @@ document.querySelectorAll(".numbers").forEach(button => {
 });
 
 
-//Add button functionality for operator buttons
+//Add functionality for operator buttons
 let input = document.querySelector(".input");
 
 function handleOperatorClick(operator) {
@@ -59,7 +59,7 @@ document.querySelectorAll(".operators").forEach(button => {
 });
 
 
-//Add button functionality for the '=' button
+//Add functionality for the '=' button
 function handleEqualsClick() {
     secondNum = +output.textContent;
     input.textContent += `${secondNum} =`;
@@ -103,7 +103,7 @@ document.querySelector("#backspace").addEventListener("click", () => {
 });
 
 
-// Display a snarky error message if the user tries to divide by 0
+// Display an error message if the user tries to divide by 0
 function divideByZero() {
     if (currentOperator = "/" && secondNum === 0) {
         alert("ERROR! Don't you know you can't divide by 0? Pff...");
@@ -116,3 +116,5 @@ function divideByZero() {
 // 1. Users should be able to string together several operations
 // 2. Pressing = before entering all of the numbers or an operator could cause problems!
 // 3. Add keyboard support!
+// 4. Add +/- button functionality
+// 5. Fix: pressing a number when there is a result in the output, stacks numbers
