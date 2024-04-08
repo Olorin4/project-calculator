@@ -45,12 +45,14 @@ document.querySelectorAll(".numbers").forEach(button => {
 let input = document.querySelector(".input");
 
 function handleOperatorClick(operator) {
-    Num1 = +output.textContent;
-    input.textContent = `${Num1} ${operator} `;
-    output.textContent = "";
-    currentOperator = operator;
-    Num2 = undefined;
-    result = undefined;
+    if (isNaN(Num2)) {
+        Num1 = +output.textContent;
+        input.textContent = `${Num1} ${operator} `;
+        output.textContent = "";
+        currentOperator = operator;
+        Num2 = undefined;
+        result = undefined;
+    }
 }
 
 document.querySelectorAll(".operators").forEach(button => {
@@ -59,15 +61,14 @@ document.querySelectorAll(".operators").forEach(button => {
     });
 });
 
-
 //Add functionality for the '=' button
 function handleEqualsClick() {
     Num2 = +output.textContent;
     input.textContent += `${Num2} =`;
     result = operate(Num1, currentOperator, Num2);
-    output.textContent = result.toLocaleString(); // thousands separator and rounding decimals
+    output.textContent = result.toLocaleString();
     Num1 = result;
-    currentOperator = undefined;
+    Num2 = undefined;
     divideByZero()
 }
 
