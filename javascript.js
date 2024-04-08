@@ -27,7 +27,7 @@ let secondNum;
 let output = document.querySelector(".output");
 
 function updateOutput(value) {
-    if (+output.textContent === 0) { 
+    if (+output.textContent === 0 || result !== undefined) { 
         output.textContent = value;
     } else {
         output.textContent += value;
@@ -50,6 +50,7 @@ function handleOperatorClick(operator) {
     output.textContent = "";
     currentOperator = operator;
     secondNum = undefined;
+    result = undefined;
 }
 
 document.querySelectorAll(".operators").forEach(button => {
@@ -117,4 +118,4 @@ function divideByZero() {
 // 2. Pressing = before entering all of the numbers or an operator could cause problems!
 // 3. Add keyboard support!
 // 4. Add +/- button functionality
-// 5. Fix: pressing a number when there is a result in the output, stacks numbers
+// 5. Fix: pressing a number when there is a result in the output, stacks numbers = FIXED!
