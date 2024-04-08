@@ -18,9 +18,9 @@ function operate(a, operator, b) {
 }
 
 
-let firstNum;
+let Num1;
 let currentOperator;
-let secondNum;
+let Num2;
 
 
 //Add functionality for number buttons
@@ -45,11 +45,11 @@ document.querySelectorAll(".numbers").forEach(button => {
 let input = document.querySelector(".input");
 
 function handleOperatorClick(operator) {
-    firstNum = +output.textContent;
-    input.textContent = `${firstNum} ${operator} `;
+    Num1 = +output.textContent;
+    input.textContent = `${Num1} ${operator} `;
     output.textContent = "";
     currentOperator = operator;
-    secondNum = undefined;
+    Num2 = undefined;
     result = undefined;
 }
 
@@ -62,11 +62,11 @@ document.querySelectorAll(".operators").forEach(button => {
 
 //Add functionality for the '=' button
 function handleEqualsClick() {
-    secondNum = +output.textContent;
-    input.textContent += `${secondNum} =`;
-    result = operate(firstNum, currentOperator, secondNum);
+    Num2 = +output.textContent;
+    input.textContent += `${Num2} =`;
+    result = operate(Num1, currentOperator, Num2);
     output.textContent = result.toLocaleString(); // thousands separator and rounding decimals
-    firstNum = result;
+    Num1 = result;
     currentOperator = undefined;
     divideByZero()
 }
@@ -78,8 +78,8 @@ document.querySelector("#equals").addEventListener("click", handleEqualsClick);
 function cancelButton() {
     output.textContent = 0;
     input.textContent = " ";
-    firstNum = undefined;
-    secondNum = undefined;
+    Num1 = undefined;
+    Num2 = undefined;
     currentOperator = undefined;
     result = undefined;
 }
@@ -106,7 +106,7 @@ document.querySelector("#backspace").addEventListener("click", () => {
 
 // Display an error message if the user tries to divide by 0
 function divideByZero() {
-    if (currentOperator = "/" && secondNum === 0) {
+    if (currentOperator = "/" && Num2 === 0) {
         alert("ERROR! Don't you know you can't divide by 0? Pff...");
         cancelButton();
     }
@@ -131,4 +131,3 @@ function placeSign() {
 // 1. Users should be able to string together several operations
 // 2. Pressing = before entering all of the numbers or an operator could cause problems!
 // 3. Add keyboard support!
-// 4. Add +/- button functionality
