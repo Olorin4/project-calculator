@@ -45,10 +45,11 @@ document.querySelectorAll(".numbers").forEach(button => {
 let input = document.querySelector(".input");
 
 function handleOperatorClick(operator) {
-        firstNum = +output.textContent;
-        input.textContent = `${firstNum} ${operator} `;
-        output.textContent = "";
-        currentOperator = operator;
+    firstNum = +output.textContent;
+    input.textContent = `${firstNum} ${operator} `;
+    output.textContent = "";
+    currentOperator = operator;
+    secondNum = undefined;
 }
 
 document.querySelectorAll(".operators").forEach(button => {
@@ -66,10 +67,7 @@ function handleEqualsClick() {
     output.textContent = result.toLocaleString(); // thousands separator and rounding decimals
     firstNum = result;
     currentOperator = undefined;
-    if (currentOperator = "/" && secondNum === 0) {
-        alert("ERROR! Don't you know you can't divide by 0? Pff...");
-        cancelButton();
-    }
+    divideByZero()
 }
 
 document.querySelector("#equals").addEventListener("click", handleEqualsClick);
@@ -106,6 +104,12 @@ document.querySelector("#backspace").addEventListener("click", () => {
 
 
 // Display a snarky error message if the user tries to divide by 0
+function divideByZero() {
+    if (currentOperator = "/" && secondNum === 0) {
+        alert("ERROR! Don't you know you can't divide by 0? Pff...");
+        cancelButton();
+    }
+}
 
 
 // Issues to fix:
