@@ -12,8 +12,6 @@ function operate(a, operator, b) {
             return a / b;
         case "%":
             return a % b;
-        default:
-            return NaN; // Handle invalid operator
     }
 }
 
@@ -25,13 +23,15 @@ let Num2;
 
 //Add functionality for number buttons
 let output = document.querySelector(".output");
+let displayResult = 0;
 
 function numberBtn(value) {
-    if (+output.textContent === 0 || result !== undefined) { 
+    if (displayResult === 0) { 
         output.textContent = value;
     } else {
         output.textContent += value;
-    }   
+    }
+    displayResult = +output.textContent;
 }
 
 document.querySelectorAll(".numbers").forEach(button => {
