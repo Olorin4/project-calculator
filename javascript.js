@@ -112,10 +112,23 @@ function divideByZero() {
     }
 }
 
+// Add +/- button functionality
+document.querySelector("#sign").addEventListener("click", () => {
+    placeSign();
+});
+
+function placeSign() {
+    (+output.textContent === 0) ? output.textContent = "-" :
+        (+output.textContent > 0) ? output.textContent = `-${output.textContent}` :
+            (+output.textContent < 0) ? output.textContent = -(+output.textContent) :
+                null;
+}
+
+
+
 
 // Issues to fix:
 // 1. Users should be able to string together several operations
 // 2. Pressing = before entering all of the numbers or an operator could cause problems!
 // 3. Add keyboard support!
 // 4. Add +/- button functionality
-// 5. Fix: pressing a number when there is a result in the output, stacks numbers = FIXED!
