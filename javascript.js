@@ -27,6 +27,7 @@ let Num2;
 let output = document.querySelector(".output");
 
 function numberBtn(value) {
+    if (value === "." && output.textContent.includes(".")) return
     if (+output.textContent === 0 || result !== undefined) { 
         output.textContent = value;
     } else {
