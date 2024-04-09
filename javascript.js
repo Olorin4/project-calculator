@@ -26,12 +26,12 @@ let Num2;
 //Add functionality for number buttons
 let output = document.querySelector(".output");
 
-function numberBtn(value) {
-    if (value === "." && output.textContent.includes(".")) return
+function numberBtn(number) {
+    if (number === "." && output.textContent.includes(".")) return
     if (+output.textContent === 0 || result !== undefined) { 
-        output.textContent = value;
+        output.textContent = number;
     } else {
-        output.textContent += value;
+        output.textContent += number;
     }   
 }
 
@@ -46,10 +46,11 @@ document.querySelectorAll(".numbers").forEach(button => {
 let input = document.querySelector(".input");
 
 function operatorBtn(operator) {
-        Num1 = +output.textContent;
-        input.textContent = `${Num1} ${operator} `;
-        output.textContent = "";
-        currentOperator = operator;
+    if (+output.textContent === 0) return
+    currentOperator = operator;
+    Num1 = +output.textContent;
+    input.textContent = `${Num1} ${operator} `;
+    output.textContent = ""; 
 }
 
 document.querySelectorAll(".operators").forEach(button => {
@@ -60,6 +61,7 @@ document.querySelectorAll(".operators").forEach(button => {
 
 //Add functionality for the '=' button
 function equalsBtn() {
+    if (+output.textContent === 0) return
     Num2 = +output.textContent;
     input.textContent += `${Num2} =`;
     result = operate(Num1, currentOperator, Num2);
@@ -115,8 +117,9 @@ function divideByZero() {
 // Add +/- button functionality
 function signBtn() {
     (+output.textContent === 0) ? output.textContent = "-" :
-        (+output.textContent > 0) ? output.textContent = `-${output.textContent}` :
-            (+output.textContent < 0) ? output.textContent = -(+output.textContent) :
+        (output.textContent === "-") ? output.textContent = "0" :
+            (+output.textContent > 0) ? output.textContent = `-${output.textContent}` :
+                (+output.textContent < 0) ? output.textContent = -(+output.textContent) :
                 null;
 }
 
