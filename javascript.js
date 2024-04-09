@@ -27,7 +27,6 @@ function compute(a, operator, b) {
     roundedResult = +result.toLocaleString();
     output.textContent = roundedResult;
     divideByZero()                               
-    undefineMainVariables(); 
 }
 
 
@@ -114,14 +113,12 @@ function operatorBtn(operator) {
 //Add functionality for the '=' button
 function equalsBtn() {
     if (+output.textContent === 0) return     // Prevents function from running
-    // operator1 = undefined;
-    // operator2 = undefined;
     Num2 = +output.textContent;
     console.log(`Num1 = ${Num1}`);
     console.log(`Num2 = ${Num2}`);
     input.textContent += `${output.textContent} =`;
     compute(Num1, currentOperator, Num2);
-    // Maybe undefine result too?
+    Num2 = undefined;
 }
 
 document.querySelector("#equals").addEventListener("click", equalsBtn);
@@ -131,10 +128,13 @@ document.querySelector("#equals").addEventListener("click", equalsBtn);
 function clearBtn() {
     output.textContent = 0;
     input.textContent = " ";
-    undefineMainVariables()
+    Num1 = undefined;
+    Num2 = undefined;
+    currentOperator = undefined;
     operator1 = undefined;
     operator2 = undefined;
     result = undefined;
+    roundedResult = undefined;
 }
 
 document.querySelector("#AC").addEventListener("click", clearBtn);
@@ -177,19 +177,6 @@ function signBtn() {
 document.querySelector("#sign").addEventListener("click", () => {
     signBtn();
 });
-
-
-function undefineMainVariables() {
-    Num1 = undefined;
-    Num2 = undefined;
-    currentOperator = undefined;
-    // operator1 = undefined;
-    // operator2 = undefined;
-    // result = undefined;
-}
-
-
-
 
 
 // Issues to fix:
