@@ -2,6 +2,7 @@ let Num1;
 let Num2;
 let currentOperator;
 let result;
+let roundedResult
 
 function compute(a, operator, b) {
     switch (operator) {
@@ -23,7 +24,10 @@ function compute(a, operator, b) {
         default:
             return
     }
-    output.textContent = result.toLocaleString();
+    roundedResult = +result.toLocaleString();
+    output.textContent = roundedResult;
+    divideByZero()                               
+    undefineMainVariables(); 
 }
 
 
@@ -32,7 +36,7 @@ let output = document.querySelector(".output");
 
 function numberBtn(number) {
     if (number === "." && output.textContent.includes(".")) return
-    if (+output.textContent === 0 || +output.textContent === result) { 
+    if (+output.textContent === 0 || +output.textContent === roundedResult) { 
         output.textContent = number;
     } else {
         output.textContent += number;
@@ -66,31 +70,40 @@ document.querySelectorAll(".operators").forEach(button => {
 
 function operatorBtn(operator) {
     if (+output.textContent === 0) return
+    currentOperator = operator;
+    console.log(`currentOperator = ${currentOperator}`);
     console.log(`Num1 = ${Num1}`);
     console.log(`Num2 = ${Num2}`);
-    if (Num1 === undefined && result === undefined) {
-        currentOperator = operator;
-        console.log(`currentOperator = ${currentOperator}`);
+
+    // For the starting operation
+    if (Num1 === undefined && result === undefined) { 
         Num1 = +output.textContent;
         input.textContent = `${output.textContent} ${operator} `;
-        output.textContent = "0"; 
+        output.textContent = "0";
+
+    // For pressing an operator button immediately after a result is displayed (num+num=result => +)
+    } else if (Num1 === undefined && Num2 === undefined && result !== undefined) {
+        Num1 = roundedResult;
+        console.log(`Num1 = ${Num1}`);
+        console.log(`Num2 = ${Num2}`);
+        input.textContent = `${output.textContent} ${operator} `;
     } else if (Num1 === undefined && result !== undefined) {
-        if (Num1 === undefined) {
-            Num1 = result;
-            Num2 = +output.textContent;
-            console.log(`Num1 = ${Num1}`);
-            console.log(`Num2 = ${Num2}`);
-            if (operator1 !== operator) {
-                compute(Num1, operator1, Num2);
-                input.textContent = `${result} ${operator1} `;
-                output.textContent = result;
-            } else {
-                compute(Num1, operator2, Num2);
-                input.textContent = `${result} ${operator2} `;
-                output.textContent = result;
-            }
-            divideByZero()
-            undefineMainVariables();
+        Num1 = roundedResult;
+        console.log(`Num1 = ${Num1}`);
+        console.log(`Num2 = ${Num2}`);
+        // For consecutive operations ( + => + => + => +)
+        if (operator1 === currentOperator && operator2 === currentOperator ) {
+            compute(Num1, operator, Num2);
+            input.textContent = `${roundedResult} ${operator} `;
+            output.textContent = roundedResult;
+        } else if (operator1 === currentOperator && operator2 !== currentOperator ) {
+            compute(Num1, operator2, Num2);
+            input.textContent = `${roundedResult} ${operator1} `;
+            output.textContent = roundedResult;
+        } else if (operator2 === currentOperator && operator1 !== currentOperator ) {
+            compute(Num1, operator1, Num2);
+            input.textContent = `${roundedResult} ${operator2} `;
+            output.textContent = roundedResult;
         }
     } else {
         equalsBtn();
@@ -100,17 +113,15 @@ function operatorBtn(operator) {
 
 //Add functionality for the '=' button
 function equalsBtn() {
-    if (+output.textContent === 0) return         // Prevents function from running 
+    if (+output.textContent === 0) return     // Prevents function from running
+    // operator1 = undefined;
+    // operator2 = undefined;
     Num2 = +output.textContent;
+    console.log(`Num1 = ${Num1}`);
     console.log(`Num2 = ${Num2}`);
     input.textContent += `${output.textContent} =`;
-    if (operator1 !== undefined) {
-        compute(Num1, operator1, Num2);
-    } else {
-        compute(Num1, operator2, Num2);
-    }
-    divideByZero()
-    undefineMainVariables();
+    compute(Num1, currentOperator, Num2);
+    // Maybe undefine result too?
 }
 
 document.querySelector("#equals").addEventListener("click", equalsBtn);
@@ -182,6 +193,6 @@ function undefineMainVariables() {
 
 
 // Issues to fix:
-// 1. Users should be able to string together several operations
-// 2. Pressing = before entering all of the numbers or an operator could cause problems!
-// 3. Add keyboard support!
+// 1. input display not showing the correct operating when changing operators
+// 2. multiplication and division not working in string operations
+// 3. remainder operation not working properly
