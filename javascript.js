@@ -3,17 +3,22 @@ let result;
 function operate(a, operator, b) {
     switch (operator) {
         case "+":
-            return a + b;
+            result = a + b;
+            break;
         case "-":
-            return a - b;
+            result = a - b;
+            break;
         case "x":
-            return a * b;
+            result = a * b;
+            break;
         case "/":
-            return a / b;
+            result = a / b;
+            break;
         case "%":
-            return a % b;
+            result = a % b;
+            break;
         default:
-            return NaN; // Handle invalid operator
+            return
     }
 }
 
@@ -47,15 +52,20 @@ let input = document.querySelector(".input");
 
 function operatorBtn(operator) {
     if (+output.textContent === 0) return
-    currentOperator = operator;
-    Num1 = +output.textContent;
-    input.textContent = `${Num1} ${operator} `;
-    output.textContent = ""; 
+    if (Num1 === undefined && currentOperator === undefined) {
+        currentOperator = operator;
+        Num1 = +output.textContent;
+        input.textContent = `${output.textContent} ${operator} `;
+        output.textContent = "0"; 
+    } else if (Num2 === undefined) {
+        currentOperator = operator;
+        equalsBtn();
+    }
 }
 
 document.querySelectorAll(".operators").forEach(button => {
     button.addEventListener("click", () => {
-        operatorBtn(button.textContent);
+        operatorBtn(button.innerText);
     });
 });
 
@@ -63,11 +73,11 @@ document.querySelectorAll(".operators").forEach(button => {
 function equalsBtn() {
     if (+output.textContent === 0) return
     Num2 = +output.textContent;
-    input.textContent += `${Num2} =`;
-    result = operate(Num1, currentOperator, Num2);
+    input.textContent += `${output.textContent} =`;
+    operate(Num1, currentOperator, Num2);
     output.textContent = result.toLocaleString();
     Num1 = undefined;
-    Num2 = undefined;
+    Num2 = "";
     currentOperator = undefined;
     result = undefined;
     divideByZero()
@@ -77,7 +87,7 @@ document.querySelector("#equals").addEventListener("click", equalsBtn);
 
 
 // Add functionality for the AC button
-function cancelBtn() {
+function clearBtn() {
     output.textContent = 0;
     input.textContent = " ";
     Num1 = undefined;
@@ -86,7 +96,7 @@ function cancelBtn() {
     result = undefined;
 }
 
-document.querySelector("#AC").addEventListener("click", cancelBtn);
+document.querySelector("#AC").addEventListener("click", clearBtn);
 
 
 // Add functionality for the Backspace button
@@ -102,15 +112,15 @@ function backspaceBtn(number) {
 }
 
 document.querySelector("#backspace").addEventListener("click", () => {
-    backspaceBtn(output.textContent);
+    backspaceBtn(output.innerText);
 });
 
 
 // Display an error message if the user tries to divide by 0
 function divideByZero() {
-    if (currentOperator = "/" && Num2 === 0) {
+    if (currentOperator === "/" && Num2 === 0) {
         alert("ERROR! Don't you know you can't divide by 0? Pff...");
-        cancelBtn();
+        clearBtn();
     }
 }
 
