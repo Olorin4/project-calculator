@@ -1,38 +1,37 @@
+let Num1;
+let Num2;
+let currentOperator;
 let result;
+let roundedResult
 
-function operate(a, operator, b) {
+function compute(a, operator, b) {
     switch (operator) {
         case "+":
-            return a + b;
+            result = a + b;
+            break;
         case "-":
-            return a - b;
+            result = a - b;
+            break;
         case "x":
-            return a * b;
+            result = a * b;
+            break;
         case "/":
-            return a / b;
+            result = a / b;
+            break;
         case "%":
-            return a % b;
+            result = a % b;
+            break;
+        default:
+            return
     }
+    roundedResult = parseFloat(result.toFixed(3));
+    output.textContent = roundedResult;
+    divideByZero()                               
 }
-
-
-let Num1;
-let currentOperator;
-let Num2;
 
 
 //Add functionality for number buttons
 let output = document.querySelector(".output");
-let displayResult = 0;
-
-function numberBtn(value) {
-    if (displayResult === 0) { 
-        output.textContent = value;
-    } else {
-        output.textContent += value;
-    }
-    displayResult = +output.textContent;
-}
 
 document.querySelectorAll(".numbers").forEach(button => {
     button.addEventListener("click", () => {
@@ -40,53 +39,124 @@ document.querySelectorAll(".numbers").forEach(button => {
     });
 });
 
+function numberBtn(number) {
+    if (number === "." && output.textContent.includes(".")) return
+    if (+output.textContent === 0 || +output.textContent === roundedResult) { 
+        output.textContent = number;
+    } else {
+        output.textContent += number;
+    }   
+}
+
 
 //Add functionality for operator buttons
 let input = document.querySelector(".input");
-
-function operatorBtn(operator) {
-        Num1 = +output.textContent;
-        input.textContent = `${Num1} ${operator} `;
-        output.textContent = "";
-        currentOperator = operator;
-}
+let isAssigningToOperator = true; // Flag variable to alternate assignments between the two operators
+let operator1;
+let operator2;
 
 document.querySelectorAll(".operators").forEach(button => {
     button.addEventListener("click", () => {
-        operatorBtn(button.textContent);
+        (isAssigningToOperator) ?
+            (operator1 = button.innerText) :              // Alternate with each click
+            (operator2 = button.innerText) ;
+        isAssigningToOperator = !isAssigningToOperator; // Toggle the flag variable for the next click
+        console.log(`operator1 = ${operator1}`);
+        console.log(`operator2 = ${operator2}`);
+        operatorBtn(button.innerText);
     });
 });
 
-//Add functionality for the '=' button
-function equalsBtn() {
-    Num2 = +output.textContent;
-    input.textContent += `${Num2} =`;
-    result = operate(Num1, currentOperator, Num2);
-    output.textContent = result.toLocaleString();
-    Num1 = undefined;
-    Num2 = undefined;
-    currentOperator = undefined;
-    result = undefined;
-    divideByZero()
+function operatorBtn(operator) {
+    if (+output.textContent === 0) return
+    currentOperator = operator;
+    console.log(`currentOperator = ${currentOperator}`);
+    console.log(`Num1 = ${Num1}`);
+    console.log(`Num2 = ${Num2}`);
+
+    // For the starting operation ( num => + )
+    if (Num1 === undefined && result === undefined) {
+        Num1 = +output.textContent;
+        input.textContent = `${output.textContent} ${operator} `;
+        output.textContent = "0";
+
+    // For pressing an operator button immediately after a result is displayed (num+num=result => +)
+    } else if (Num1 === undefined && result !== undefined) {
+        Num1 = result;
+        console.log(`Num1 = ${Num1}`);
+        console.log(`Num2 = ${Num2}`);
+        input.textContent = `${output.textContent} ${operator} `;
+
+    // For the first string operation ( num + num => + )
+    } else if (Num2 === undefined && result === undefined) {
+        Num2 = +output.textContent;
+        console.log(`Num2 = ${Num2}`);
+        selectOperator(operator1, currentOperator, operator2);
+       
+    // For the second string operation ( num + num + num => + )
+    } else if (Num2 === undefined && result !== undefined) {
+        Num1 = result;
+        Num2 = +output.textContent;
+        console.log(`Num1 = ${Num1}`);
+        console.log(`Num2 = ${Num2}`);
+        selectOperator(operator1, currentOperator, operator2);
+    }
 }
 
+function selectOperator(operator1, currentOperator, operator2) {
+    if (operator1 === currentOperator && operator2 === currentOperator) {
+        compute(Num1, currentOperator, Num2);
+        input.textContent = `${roundedResult} ${currentOperator} `;
+    } else if (operator1 === currentOperator && operator2 !== currentOperator) {
+        compute(Num1, operator2, Num2);
+        input.textContent = `${roundedResult} ${operator1} `;
+    } else if (operator2 === currentOperator && operator1 !== currentOperator) {
+        compute(Num1, operator1, Num2);
+        input.textContent = `${roundedResult} ${operator2} `;
+    }
+    Num2 = undefined;
+}
+
+
+//Add functionality for the '=' button
 document.querySelector("#equals").addEventListener("click", equalsBtn);
+
+function equalsBtn() {
+    if (+output.textContent === 0) return     // Prevents function from running
+    if (Num1 !== roundedResult && roundedResult !== undefined) {
+        Num1 = result;
+    }
+    Num2 = +output.textContent;
+    console.log(`Num1 = ${Num1}`);
+    console.log(`Num2 = ${Num2}`);
+    input.textContent += `${output.textContent} =`;
+    compute(Num1, currentOperator, Num2);
+    Num1 = undefined;
+    Num2 = undefined;
+}
 
 
 // Add functionality for the AC button
-function cancelBtn() {
+document.querySelector("#AC").addEventListener("click", clearBtn);
+
+function clearBtn() {
     output.textContent = 0;
     input.textContent = " ";
     Num1 = undefined;
     Num2 = undefined;
     currentOperator = undefined;
+    operator1 = undefined;
+    operator2 = undefined;
     result = undefined;
+    roundedResult = undefined;
 }
-
-document.querySelector("#AC").addEventListener("click", cancelBtn);
 
 
 // Add functionality for the Backspace button
+document.querySelector("#backspace").addEventListener("click", () => {
+    backspaceBtn(output.innerText);
+});
+
 function backspaceBtn(number) {
     if (output.textContent.length === 1) {
         output.textContent = 0;
@@ -98,36 +168,27 @@ function backspaceBtn(number) {
     }
 }
 
-document.querySelector("#backspace").addEventListener("click", () => {
-    backspaceBtn(output.textContent);
-});
-
 
 // Display an error message if the user tries to divide by 0
 function divideByZero() {
-    if (currentOperator = "/" && Num2 === 0) {
+    if (operator1 === "/" && Num2 === 0) {
         alert("ERROR! Don't you know you can't divide by 0? Pff...");
-        cancelBtn();
+        clearBtn();
     }
 }
 
-// Add +/- button functionality
-function signBtn() {
-    (+output.textContent === 0) ? output.textContent = "-" :
-        (+output.textContent > 0) ? output.textContent = `-${output.textContent}` :
-            (+output.textContent < 0) ? output.textContent = -(+output.textContent) :
-                null;
-}
-
+// Add functionality for the "+/-" button 
 document.querySelector("#sign").addEventListener("click", () => {
     signBtn();
 });
 
-
-
-
+function signBtn() {
+    (+output.textContent === 0) ? output.textContent = "-" :
+        (output.textContent === "-") ? output.textContent = "0" :
+            (+output.textContent > 0) ? output.textContent = `-${output.textContent}` :
+                (+output.textContent < 0) ? output.textContent = -(+output.textContent) :
+                null;
+}
 
 // Issues to fix:
-// 1. Users should be able to string together several operations
-// 2. Pressing = before entering all of the numbers or an operator could cause problems!
-// 3. Add keyboard support!
+// 1. Implement thousand separator (produced by toLocaleString)
