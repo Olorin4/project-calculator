@@ -191,5 +191,4 @@ function signBtn() {
 }
 
 // Issues to fix:
-// 1. roundedResult above 1000 is Nan because of the thousand separator (produced by the toLocaleString)
-// 2. When the first string operation is like this ( num + num => - ) the wrong operator is used.
+// 1. Implement thousand separator (produced by toLocaleString)
