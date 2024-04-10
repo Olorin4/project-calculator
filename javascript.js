@@ -32,6 +32,13 @@ function compute(a, operator, b) {
 
 //Add functionality for number buttons
 let output = document.querySelector(".output");
+// let displayOutput = output.textContent;        // Replace later
+
+document.querySelectorAll(".numbers").forEach(button => {
+    button.addEventListener("click", () => {
+        numberBtn(button.textContent);
+    });
+});
 
 function numberBtn(number) {
     if (number === "." && output.textContent.includes(".")) return
@@ -42,25 +49,20 @@ function numberBtn(number) {
     }   
 }
 
-document.querySelectorAll(".numbers").forEach(button => {
-    button.addEventListener("click", () => {
-        numberBtn(button.textContent);
-    });
-});
-
 
 //Add functionality for operator buttons
 let input = document.querySelector(".input");
-let isAssigningToOperator1 = true; // Flag variable to alternate assignments between the two operators
+// let displayInput = input.textContent;        // Replace later
+let isAssigningToOperator = true; // Flag variable to alternate assignments between the two operators
 let operator1;
 let operator2;
 
 document.querySelectorAll(".operators").forEach(button => {
     button.addEventListener("click", () => {
-        (isAssigningToOperator1) ?
+        (isAssigningToOperator) ?
             (operator1 = button.innerText) :              // Alternate with each click
             (operator2 = button.innerText) ;
-        isAssigningToOperator1 = !isAssigningToOperator1; // Toggle the flag variable for the next click
+        isAssigningToOperator = !isAssigningToOperator; // Toggle the flag variable for the next click
         console.log(`operator1 = ${operator1}`);
         console.log(`operator2 = ${operator2}`);
         operatorBtn(button.innerText);
@@ -74,8 +76,8 @@ function operatorBtn(operator) {
     console.log(`Num1 = ${Num1}`);
     console.log(`Num2 = ${Num2}`);
 
-    // For the starting operation
-    if (Num1 === undefined && result === undefined) { 
+    // For the starting operation ( num => + )
+    if (Num1 === undefined && result === undefined) {
         Num1 = +output.textContent;
         input.textContent = `${output.textContent} ${operator} `;
         output.textContent = "0";
@@ -86,26 +88,34 @@ function operatorBtn(operator) {
         console.log(`Num1 = ${Num1}`);
         console.log(`Num2 = ${Num2}`);
         input.textContent = `${output.textContent} ${operator} `;
-    } else if (Num1 === undefined && result !== undefined) {
+
+    // For the first string operation ( num + num => + ) or ( num + num => - )
+    } else if (Num2 === undefined && result === undefined) {
+        Num2 = +output.textContent;
+        console.log(`Num2 = ${Num2}`);
+        compute(Num1, operator1, Num2);
+        input.textContent = `${roundedResult} ${currentOperator} `;
+        Num2 = undefined;
+       
+    // For the second string operation ( num + num + num => + )
+    } else if (Num2 === undefined && result !== undefined) {
         Num1 = roundedResult;
+        Num2 = +output.textContent;
         console.log(`Num1 = ${Num1}`);
         console.log(`Num2 = ${Num2}`);
-        // For consecutive operations ( + => + => + => +)
-        if (operator1 === currentOperator && operator2 === currentOperator ) {
+        if (operator1 === currentOperator && operator2 === currentOperator) {
             compute(Num1, operator, Num2);
             input.textContent = `${roundedResult} ${operator} `;
-            output.textContent = roundedResult;
-        } else if (operator1 === currentOperator && operator2 !== currentOperator ) {
+            Num2 = undefined;
+        } else if (operator1 === currentOperator && operator2 !== currentOperator) {
             compute(Num1, operator2, Num2);
             input.textContent = `${roundedResult} ${operator1} `;
-            output.textContent = roundedResult;
-        } else if (operator2 === currentOperator && operator1 !== currentOperator ) {
+            Num2 = undefined;
+        } else if (operator2 === currentOperator && operator1 !== currentOperator) {
             compute(Num1, operator1, Num2);
             input.textContent = `${roundedResult} ${operator2} `;
-            output.textContent = roundedResult;
+            Num2 = undefined;
         }
-    } else {
-        equalsBtn();
     }
 }
 
@@ -113,11 +123,15 @@ function operatorBtn(operator) {
 //Add functionality for the '=' button
 function equalsBtn() {
     if (+output.textContent === 0) return     // Prevents function from running
+    if (Num1 !== roundedResult && roundedResult !== undefined) {
+        Num1 = roundedResult;
+    }
     Num2 = +output.textContent;
     console.log(`Num1 = ${Num1}`);
     console.log(`Num2 = ${Num2}`);
     input.textContent += `${output.textContent} =`;
     compute(Num1, currentOperator, Num2);
+    Num1 = undefined;
     Num2 = undefined;
 }
 
@@ -165,7 +179,7 @@ function divideByZero() {
     }
 }
 
-// Add +/- button functionality
+// Add functionality for the "+/-" button 
 function signBtn() {
     (+output.textContent === 0) ? output.textContent = "-" :
         (output.textContent === "-") ? output.textContent = "0" :
